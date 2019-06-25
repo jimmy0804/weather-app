@@ -26,10 +26,8 @@ extension UIStoryboard {
     
     /**
         Instantiates and returns the view controller for view controllers that have confirmed to StoryboardIdentifiable.
-        - Parameter T: The view controller type.
      */
-    
-    func instantiateViewController<T: StoryboardIdentifiable>() -> T {
+    func instantiateViewController<T: UIViewController>() -> T {
         guard let viewController = instantiateViewController(withIdentifier: T.storyboardIdentifier) as? T else {
             fatalError("Couldn't instantiate view controller with identifier \(T.storyboardIdentifier) ")
         }

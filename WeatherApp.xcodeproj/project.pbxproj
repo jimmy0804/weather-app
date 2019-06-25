@@ -15,6 +15,7 @@
 		BF73A45722C1E544001532ED /* WeatherAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF73A45622C1E544001532ED /* WeatherAppTests.swift */; };
 		BF73A47E22C202C2001532ED /* StoryboardIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF73A47D22C202C2001532ED /* StoryboardIdentifiable.swift */; };
 		BF73A48022C2045F001532ED /* UIStoryboard+InstantiateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF73A47F22C2045F001532ED /* UIStoryboard+InstantiateViewController.swift */; };
+		BF73A48522C208F2001532ED /* UIViewController+StoryboardIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF73A48422C208F2001532ED /* UIViewController+StoryboardIdentifiable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		BF73A45822C1E544001532ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF73A47D22C202C2001532ED /* StoryboardIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardIdentifiable.swift; sourceTree = "<group>"; };
 		BF73A47F22C2045F001532ED /* UIStoryboard+InstantiateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+InstantiateViewController.swift"; sourceTree = "<group>"; };
+		BF73A48422C208F2001532ED /* UIViewController+StoryboardIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+StoryboardIdentifiable.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 			children = (
 				BF73A47D22C202C2001532ED /* StoryboardIdentifiable.swift */,
 				BF73A47F22C2045F001532ED /* UIStoryboard+InstantiateViewController.swift */,
+				BF73A48422C208F2001532ED /* UIViewController+StoryboardIdentifiable.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -222,6 +225,7 @@
 				BF73A44422C1E542001532ED /* ViewController.swift in Sources */,
 				BF73A48022C2045F001532ED /* UIStoryboard+InstantiateViewController.swift in Sources */,
 				BF73A47E22C202C2001532ED /* StoryboardIdentifiable.swift in Sources */,
+				BF73A48522C208F2001532ED /* UIViewController+StoryboardIdentifiable.swift in Sources */,
 				BF73A44222C1E542001532ED /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
