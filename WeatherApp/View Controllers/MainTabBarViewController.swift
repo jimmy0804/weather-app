@@ -8,9 +8,10 @@
 
 import UIKit
 
-class MainTabBarViewController: UITabBarController {
+final class MainTabBarViewController: UITabBarController {
     
     let weatherSearchCoordinator = WeatherSearchCoordinator(navigationController: UINavigationController())
+    let weatherHistoryCoordinator = WeatherHistoryCoordinator(navigationController: UINavigationController())
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +23,11 @@ class MainTabBarViewController: UITabBarController {
     
     private func setUpTabBarViewControllers() {
         weatherSearchCoordinator.start()
-        viewControllers = [weatherSearchCoordinator.navigationController]
+        weatherHistoryCoordinator.start()
+
+        viewControllers = [
+            weatherSearchCoordinator.navigationController,
+            weatherHistoryCoordinator.navigationController
+        ]
     }
 }

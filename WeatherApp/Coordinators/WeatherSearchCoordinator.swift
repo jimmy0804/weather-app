@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WeatherSearchCoordinator: Coordinator {
+final class WeatherSearchCoordinator: Coordinator {
     
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController

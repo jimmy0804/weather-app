@@ -21,6 +21,9 @@
 		BF73A48722C23A18001532ED /* WeatherSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF73A48622C23A18001532ED /* WeatherSearchViewController.swift */; };
 		BF73A48922C23A38001532ED /* WeatherSearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF73A48822C23A38001532ED /* WeatherSearchCoordinator.swift */; };
 		BF73A48B22C23DD6001532ED /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF73A48A22C23DD6001532ED /* Search.storyboard */; };
+		BF73A48D22C23E86001532ED /* WeatherHistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF73A48C22C23E86001532ED /* WeatherHistoryTableViewController.swift */; };
+		BF73A48F22C23ED8001532ED /* History.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF73A48E22C23ED8001532ED /* History.storyboard */; };
+		BF73A49122C23F6E001532ED /* WeatherHistoryCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF73A49022C23F6E001532ED /* WeatherHistoryCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +55,9 @@
 		BF73A48622C23A18001532ED /* WeatherSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherSearchViewController.swift; sourceTree = "<group>"; };
 		BF73A48822C23A38001532ED /* WeatherSearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherSearchCoordinator.swift; sourceTree = "<group>"; };
 		BF73A48A22C23DD6001532ED /* Search.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
+		BF73A48C22C23E86001532ED /* WeatherHistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherHistoryTableViewController.swift; sourceTree = "<group>"; };
+		BF73A48E22C23ED8001532ED /* History.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = History.storyboard; sourceTree = "<group>"; };
+		BF73A49022C23F6E001532ED /* WeatherHistoryCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherHistoryCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +127,7 @@
 				BF73A46F22C1FF9E001532ED /* Coordinator.swift */,
 				BF73A47122C1FFAA001532ED /* AppCoordinator.swift */,
 				BF73A48822C23A38001532ED /* WeatherSearchCoordinator.swift */,
+				BF73A49022C23F6E001532ED /* WeatherHistoryCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -145,6 +152,7 @@
 				BF73A44A22C1E543001532ED /* LaunchScreen.storyboard */,
 				BF73A44522C1E542001532ED /* Main.storyboard */,
 				BF73A48A22C23DD6001532ED /* Search.storyboard */,
+				BF73A48E22C23ED8001532ED /* History.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -164,6 +172,7 @@
 			children = (
 				BF73A48222C207EA001532ED /* MainTabBarViewController.swift */,
 				BF73A48622C23A18001532ED /* WeatherSearchViewController.swift */,
+				BF73A48C22C23E86001532ED /* WeatherHistoryTableViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -252,6 +261,7 @@
 				BF73A44C22C1E543001532ED /* LaunchScreen.storyboard in Resources */,
 				BF73A44922C1E543001532ED /* Assets.xcassets in Resources */,
 				BF73A48B22C23DD6001532ED /* Search.storyboard in Resources */,
+				BF73A48F22C23ED8001532ED /* History.storyboard in Resources */,
 				BF73A44722C1E542001532ED /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -270,10 +280,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF73A48D22C23E86001532ED /* WeatherHistoryTableViewController.swift in Sources */,
 				BF73A47022C1FF9E001532ED /* Coordinator.swift in Sources */,
 				BF73A48922C23A38001532ED /* WeatherSearchCoordinator.swift in Sources */,
 				BF73A47222C1FFAA001532ED /* AppCoordinator.swift in Sources */,
 				BF73A48022C2045F001532ED /* UIStoryboard+InstantiateViewController.swift in Sources */,
+				BF73A49122C23F6E001532ED /* WeatherHistoryCoordinator.swift in Sources */,
 				BF73A48722C23A18001532ED /* WeatherSearchViewController.swift in Sources */,
 				BF73A48322C207EA001532ED /* MainTabBarViewController.swift in Sources */,
 				BF73A47E22C202C2001532ED /* StoryboardIdentifiable.swift in Sources */,
