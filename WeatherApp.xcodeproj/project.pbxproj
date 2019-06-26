@@ -99,6 +99,7 @@
 		BF73A44022C1E542001532ED /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				BF73A49222C2FAFA001532ED /* Extensions */,
 				BF73A48122C207AB001532ED /* View Controllers */,
 				BF73A47A22C201E6001532ED /* Utils */,
 				BF73A47322C200B6001532ED /* Storyboards */,
@@ -161,8 +162,6 @@
 			isa = PBXGroup;
 			children = (
 				BF73A47D22C202C2001532ED /* StoryboardIdentifiable.swift */,
-				BF73A47F22C2045F001532ED /* UIStoryboard+InstantiateViewController.swift */,
-				BF73A48422C208F2001532ED /* UIViewController+StoryboardIdentifiable.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -175,6 +174,15 @@
 				BF73A48C22C23E86001532ED /* WeatherHistoryTableViewController.swift */,
 			);
 			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		BF73A49222C2FAFA001532ED /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				BF73A47F22C2045F001532ED /* UIStoryboard+InstantiateViewController.swift */,
+				BF73A48422C208F2001532ED /* UIViewController+StoryboardIdentifiable.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
