@@ -10,7 +10,7 @@ import Foundation
 
 public enum WeatherApi {
     case getWeatherByCityName(cityName: String)
-    case getWeatherByZipCode(zipCode: Int)
+    case getWeatherByZipCode(zipCode: String)
     case getWeatherByCoordinates
 }
 

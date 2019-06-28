@@ -16,7 +16,7 @@ extension UIStoryboard {
     enum Storyboard: String {
         case main       = "Main"
         case search     = "Search"
-        case history    = "History"
+        case detail     = "Detail"
     }
     
     /**

@@ -14,6 +14,7 @@ final class AppCoordinator: Coordinator {
 
     let window: UIWindow
     
+    var childCoordinators = [Coordinator]()
     let navController = UINavigationController()
     
     // MARK: - Init
@@ -28,7 +29,8 @@ final class AppCoordinator: Coordinator {
         window.rootViewController = navController
         window.makeKeyAndVisible()
 
-        let weatherSearchCoordinator = WeatherSearchCoordinator(navigationController: navController)
-        weatherSearchCoordinator.start()
+        let child = WeatherSearchCoordinator(navigationController: navController)
+        childCoordinators.append(child)
+        child.start()
     }
 }

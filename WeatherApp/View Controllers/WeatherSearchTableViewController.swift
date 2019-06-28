@@ -66,7 +66,7 @@ class WeatherSearchTableViewController: UITableViewController {
         
     }
     
-    // MARK: - Table view
+    // MARK: - Table view datasource
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return TableViewSection.total.rawValue
@@ -140,18 +140,55 @@ class WeatherSearchTableViewController: UITableViewController {
         return nil
     }
     
+    // MARK: - Table View Delegate
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        dismissKeyboard()
+        
+        guard let tableViewSection = TableViewSection(rawValue: indexPath.section) else {
+            return
+        }
+        
+        guard let viewModel = viewModel else {
+            return
+        }
+        
+        switch tableViewSection {
+        case .search:
+            if indexPath.row == 0 {
+                let weatherSearchInfo = WeatherSearch(searchType: .cityName(name: viewModel.searchKeywords))
+                coordinator?.showWeatherDetail(with: weatherSearchInfo)
+            } else {
+                let weatherSearchInfo = WeatherSearch(searchType: .zipCode(code: viewModel.searchKeywords))
+                coordinator?.showWeatherDetail(with: weatherSearchInfo)
+            }
+        case .searchHistory:
+//            coordinator?.showWeatherDetail(keywords: "")
+            break
+        case .total:
+            break
+        }
+    }
+
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
     
+    // MARK: - Helper
+
     func reloadTableViewWhenSearchTextChange(searchText: String) {
         if searchText.count <= 1 {
             tableView.reloadSections([0, 1], with: .automatic)
         } else {
             tableView.reloadData()
         }
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
 

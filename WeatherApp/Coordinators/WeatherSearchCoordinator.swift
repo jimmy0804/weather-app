@@ -19,9 +19,15 @@ final class WeatherSearchCoordinator: Coordinator {
 
     func start() {
         let viewModel = WeatherSearchViewModel()
-        let weatherSearchTableViewController: WeatherSearchTableViewController = UIStoryboard(.search).instantiateViewController()
-        weatherSearchTableViewController.coordinator = self
-        weatherSearchTableViewController.viewModel = viewModel
-        navigationController.pushViewController(weatherSearchTableViewController, animated: true)
+        let viewController: WeatherSearchTableViewController = UIStoryboard(.search).instantiateViewController()
+        viewController.coordinator = self
+        viewController.viewModel = viewModel
+        navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    func showWeatherDetail(with weatherSearch: WeatherSearch) {
+        let child = WeatherDetailCoordinator(navigationController: navigationController, weatherSearch: weatherSearch)
+        childCoordinators.append(child)
+        child.start()
     }
 }

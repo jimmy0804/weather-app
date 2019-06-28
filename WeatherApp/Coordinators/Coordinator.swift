@@ -6,8 +6,6 @@
 //  Copyright © 2019 Jimmy Yeung. All rights reserved.
 //
 
-import Foundation
-
 protocol Coordinator {
     func start()
 }

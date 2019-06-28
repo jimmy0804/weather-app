@@ -28,29 +28,9 @@ struct WeatherSearchViewModel {
         return !searchHistory.isEmpty
     }
     
-    // MARK: - Dependency
-
-    let networkRouter: NetworkRouter<WeatherApi>
-    
     // MARK: - Init
 
-    init(networkRouter: NetworkRouter<WeatherApi> = NetworkRouter<WeatherApi>()) {
-        self.networkRouter = networkRouter
+    init() {
+        
     }
-    
-    // MARK: - Search
-    
-//    func searchWeatherByCityName() {
-//        networkRouter.request(type: Weather.self, route: .getWeatherByCityName(cityName: searchKeywords)) { response in
-//            switch response {
-//            case .success(let weather):
-//            case .failure(let error):
-//
-//            }
-//        }
-//    }
-//
-//    func searchWeatherByZipCode() {
-//
-//    }
 }

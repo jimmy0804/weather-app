@@ -37,7 +37,7 @@ public class NetworkRouter<Service: ServiceType>: NetworkRoutable {
     // MARK: - Helper
 
     private func buildRequest(from route: Service) throws -> URLRequest {
-        var request = URLRequest(url: route.baseURL, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 10.0)
+        var request = URLRequest(url: route.baseURL.appendingPathComponent(route.path), cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 10.0)
         request.httpMethod = route.method.rawValue
         
         do {
@@ -90,6 +90,8 @@ public class NetworkRouter<Service: ServiceType>: NetworkRoutable {
         guard let response = response else {
             return completion(.failure(.noResponse))
         }
+        
+        print(error)
         
         switch response.statusCode {
         case 200...299:
