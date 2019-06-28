@@ -31,10 +31,38 @@
                             <outlet property="delegate" destination="QIx-E5-hyW" id="bYF-tP-aRw"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="kNy-ZV-SJm">
+                        <barButtonItem key="rightBarButtonItem" image="icons8-compass" id="FMn-qp-gvl">
+                            <connections>
+                                <action selector="didClickSearchCurrentLocation:" destination="QIx-E5-hyW" id="eM7-aA-GYa"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bT7-t0-KgM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="186" y="127"/>
+            <point key="canvasLocation" x="1095.6521739130435" y="126.5625"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="gdA-vh-Gwb">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ndE-IY-4fz" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5em-fq-P2P">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="QIx-E5-hyW" kind="relationship" relationship="rootViewController" id="zVJ-yi-Pn1"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PLh-Gx-GpU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="185.50724637681162" y="126.5625"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="icons8-compass" width="28" height="28"/>
+    </resources>
 </document>

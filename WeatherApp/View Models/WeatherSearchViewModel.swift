@@ -21,7 +21,12 @@ struct WeatherSearchViewModel {
         return !searchKeywords.isEmpty
     }
     
+    var isAllowSearchByLocation = true
+    
     var searchHistory = [Weather]()
+    var hasSearchHistory: Bool {
+        return !searchHistory.isEmpty
+    }
     
     // MARK: - Dependency
 

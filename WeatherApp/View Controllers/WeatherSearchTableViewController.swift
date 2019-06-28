@@ -22,20 +22,24 @@ class WeatherSearchTableViewController: UITableViewController {
     
     var searchController: UISearchController?
     var viewModel: WeatherSearchViewModel?
-    
+
     // MARK: - Life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        title = "Weather"
-        navigationController?.navigationBar.prefersLargeTitles = true
 
+        setupNavigationController()
         setupSearchController()
         setupTableView()
     }
     
     // MARK: - Set up
+    
+    private func setupNavigationController() {
+        title = "Weather"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.leftBarButtonItem = editButtonItem
+    }
     
     private func setupSearchController() {
         let searchController = UISearchController(searchResultsController: nil)
@@ -56,6 +60,12 @@ class WeatherSearchTableViewController: UITableViewController {
         tableView.tableFooterView = UIView()
     }
     
+    // MARK: - Action
+    
+    @IBAction func didClickSearchCurrentLocation(_ sender: Any) {
+        
+    }
+    
     // MARK: - Table view
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -67,14 +77,15 @@ class WeatherSearchTableViewController: UITableViewController {
             preconditionFailure("Error: Wrong table view section defined")
         }
         
+        guard let viewModel = viewModel else {
+            return 0
+        }
+        
         switch tableViewSection {
         case .search:
-            if let viewModel = viewModel {
-                return viewModel.hasSearchKeywords ? 2 : 0
-            }
-            return 0
+            return viewModel.hasSearchKeywords ? 2 : 0
         case .searchHistory:
-            return 0
+            return viewModel.hasSearchHistory ? viewModel.searchHistory.count : 0
         case .total:
             return 0
         }
@@ -90,16 +101,24 @@ class WeatherSearchTableViewController: UITableViewController {
         }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherSearchCell", for: indexPath)
+        cell.selectionStyle = .default
+        cell.accessoryType = .disclosureIndicator
+        cell.textLabel?.textColor = .black
         
         switch tableViewSection {
         case .search:
             if indexPath.row == 0 {
-                cell.textLabel?.text = "Search for City \"\(viewModel.searchKeywords)\""
+                cell.textLabel?.text = "Search by City \"\(viewModel.searchKeywords)\""
             } else {
-                cell.textLabel?.text = "Search for Zip Code \"\(viewModel.searchKeywords)\""
+                cell.textLabel?.text = "Search by Zip Code \"\(viewModel.searchKeywords)\""
             }
         case .searchHistory:
-            break
+            if !viewModel.hasSearchHistory {
+                cell.textLabel?.text = "Empty"
+                cell.selectionStyle = .none
+                cell.accessoryType = .none
+                cell.textLabel?.textColor = .lightGray
+            }
         case .total:
             break
         }
@@ -112,11 +131,19 @@ class WeatherSearchTableViewController: UITableViewController {
             preconditionFailure("Error: Wrong table view section defined")
         }
         
-        if tableViewSection == .searchHistory {
+        let hasSearchHistory = viewModel?.hasSearchHistory ?? false
+        
+        if tableViewSection == .searchHistory && hasSearchHistory {
             return "Recent Searches"
         }
 
         return nil
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
     
     func reloadTableViewWhenSearchTextChange(searchText: String) {
