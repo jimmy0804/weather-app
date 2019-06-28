@@ -62,7 +62,7 @@ class NetworkRouterTests: XCTestCase {
         session = nil
     }
     
-    func testGetResumeCalled() {
+    func test_get_resumeCalled() {
         let cityName = "Hong Kong"
         let dataTask = MockURLSessionDataTask()
         session.nextDataTask = dataTask
@@ -79,7 +79,7 @@ class NetworkRouterTests: XCTestCase {
         XCTAssertTrue(dataTask.resumeWasCalled)
     }
     
-    func testGetCancelCalled() {
+    func test_get_cancelCalled() {
         let cityName = "Hong Kong"
         let dataTask = MockURLSessionDataTask()
         session.nextDataTask = dataTask
@@ -98,7 +98,7 @@ class NetworkRouterTests: XCTestCase {
         XCTAssertTrue(dataTask.cancelWasCalled)
     }
 
-    func testGetShouldReturnNoDataError() {
+    func test_get_shouldReturnNoDataError() {
         let cityName = "Hong Kong"
         
         var actualData: Weather?
@@ -117,7 +117,7 @@ class NetworkRouterTests: XCTestCase {
         XCTAssertTrue(actualError == .noData)
     }
     
-    func testGetShouldReturnUnableToDecode() {
+    func test_get_shouldReturnUnableToDecode() {
         let cityName = "Hong Kong"
         let expectedData = "{}".data(using: .utf8)
 

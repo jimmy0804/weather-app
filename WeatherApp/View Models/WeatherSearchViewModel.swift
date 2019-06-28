@@ -34,12 +34,12 @@ class WeatherSearchViewModel: NSObject {
     
     // MARK: - Dependency
     
-    let locationManager: CLLocationManager
+    var locationManager: LocationManager
     
     // MARK: - Init
 
     init(delegate: WeatherSearchViewModelProtocal,
-         locationManager: CLLocationManager = CLLocationManager()) {
+         locationManager: LocationManager = CLLocationManager()) {
         self.delegate = delegate
         self.locationManager = locationManager
     }
@@ -48,11 +48,9 @@ class WeatherSearchViewModel: NSObject {
     
     func getCurrentLocationIfAvailable() {
         locationManager.requestWhenInUseAuthorization()
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            locationManager.startUpdatingLocation()
-        }
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        locationManager.startUpdatingLocation()
     }
 }
 
