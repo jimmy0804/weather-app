@@ -21,5 +21,28 @@ class WeatherDetailViewController: UIViewController {
         super.viewDidLoad()
         
         viewModel?.getWeatherDetail()
+        definesPresentationContext = true
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        viewModel?.cancelGetWeather()
+    }
+}
+
+// MARK: - WeatherDetailViewModelProtocal
+
+extension WeatherDetailViewController: WeatherDetailViewModelProtocal {
+    func weatherDetailViewModel(_ viewModel: WeatherDetailViewModel, startsSearching search: WeatherSearch) {
+        
+    }
+    
+    func weatherDetailViewModel(_ viewModel: WeatherDetailViewModel, didFinishSearching search: WeatherSearch, withResult result: Weather) {
+        
+    }
+    
+    func weatherDetailViewModel(_ viewModel: WeatherDetailViewModel, didFailedSearching search: WeatherSearch, withReason reason: String) {
+        
     }
 }

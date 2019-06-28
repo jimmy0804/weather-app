@@ -7,12 +7,14 @@
 //
 
 import Foundation
+import CoreLocation
 
-//protocol WeatherSearchViewModelProtocal {
-//    func
-//}
+protocol WeatherSearchViewModelProtocal: class {
+    func didRecieveCurrentLocation(_ location: CLLocationCoordinate2D)
+    func didFailGettingCurrentLocation()
+}
 
-struct WeatherSearchViewModel {
+class WeatherSearchViewModel: NSObject {
     
     // MARK: - Property
 
@@ -27,10 +29,44 @@ struct WeatherSearchViewModel {
     var hasSearchHistory: Bool {
         return !searchHistory.isEmpty
     }
+
+    weak var delegate: WeatherSearchViewModelProtocal?
+    
+    // MARK: - Dependency
+    
+    let locationManager: CLLocationManager
     
     // MARK: - Init
 
-    init() {
-        
+    init(delegate: WeatherSearchViewModelProtocal,
+         locationManager: CLLocationManager = CLLocationManager()) {
+        self.delegate = delegate
+        self.locationManager = locationManager
+    }
+    
+    // MARK: - Location
+    
+    func getCurrentLocationIfAvailable() {
+        locationManager.requestWhenInUseAuthorization()
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
+    }
+}
+
+// MARK: - CLLocationManagerDelegate
+
+extension WeatherSearchViewModel: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let locationValue: CLLocationCoordinate2D = manager.location?.coordinate else {
+            delegate?.didFailGettingCurrentLocation()
+            manager.stopUpdatingLocation()
+            return
+        }
+
+        delegate?.didRecieveCurrentLocation(locationValue)
+        manager.stopUpdatingLocation()
     }
 }

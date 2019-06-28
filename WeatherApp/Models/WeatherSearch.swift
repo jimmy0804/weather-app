@@ -11,7 +11,7 @@ import Foundation
 enum WeatherSearchType {
     case cityName(name: String)
     case zipCode(code: String)
-    case location(location: GeoLocation)
+    case location(lat: Double, lon: Double)
 }
 
 struct WeatherSearch {

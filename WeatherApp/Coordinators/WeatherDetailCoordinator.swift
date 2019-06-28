@@ -11,17 +11,22 @@ import DeckTransition
 
 final class WeatherDetailCoordinator: Coordinator {
 
+    // MARK: - Property
+
     var navigationController: UINavigationController
     var weatherSearch: WeatherSearch
     
+    // MARK: - Init
+
     init(navigationController: UINavigationController, weatherSearch: WeatherSearch) {
         self.navigationController = navigationController
         self.weatherSearch = weatherSearch
     }
 
     func start() {
-        let viewModel = WeatherDetailViewModel(weatherSearch: weatherSearch)
         let viewController: WeatherDetailViewController = UIStoryboard(.detail).instantiateViewController()
+
+        let viewModel = WeatherDetailViewModel(weatherSearch: weatherSearch, delegate: viewController)
         viewController.viewModel = viewModel
         viewController.coordinator = self
         

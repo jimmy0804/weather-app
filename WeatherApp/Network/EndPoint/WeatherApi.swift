@@ -11,7 +11,7 @@ import Foundation
 public enum WeatherApi {
     case getWeatherByCityName(cityName: String)
     case getWeatherByZipCode(zipCode: String)
-    case getWeatherByCoordinates
+    case getWeatherByCoordinates(lat: Double, lon: Double)
 }
 
 /// API Format Documentations
@@ -52,8 +52,8 @@ extension WeatherApi: ServiceType {
                 ])
         case .getWeatherByZipCode(zipCode: let zipCode):
             return .requestParameters(bodyParameters: nil, urlParameters: ["zip": zipCode, "appid": APIKey])
-        case .getWeatherByCoordinates:
-            return .requestParameters(bodyParameters: nil, urlParameters: ["lat": 1, "lon": 2, "appid": APIKey])
+        case .getWeatherByCoordinates(lat: let lat, lon: let lon):
+            return .requestParameters(bodyParameters: nil, urlParameters: ["lat": lat, "lon": lon, "appid": APIKey])
         }
     }
     

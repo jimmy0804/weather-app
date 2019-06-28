@@ -92,6 +92,7 @@ public class NetworkRouter<Service: ServiceType>: NetworkRoutable {
         }
         
         print(error)
+        print(response)
         
         switch response.statusCode {
         case 200...299:

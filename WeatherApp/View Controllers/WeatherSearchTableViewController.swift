@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class WeatherSearchTableViewController: UITableViewController {
     
@@ -63,7 +64,7 @@ class WeatherSearchTableViewController: UITableViewController {
     // MARK: - Action
     
     @IBAction func didClickSearchCurrentLocation(_ sender: Any) {
-        
+        viewModel?.getCurrentLocationIfAvailable()
     }
     
     // MARK: - Table view datasource
@@ -192,6 +193,8 @@ class WeatherSearchTableViewController: UITableViewController {
     }
 }
 
+// MARK: - UISearchBarDelegate
+
 extension WeatherSearchTableViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     }
@@ -207,8 +210,23 @@ extension WeatherSearchTableViewController: UISearchBarDelegate {
     }
 }
 
+// MARK: - UISearchResultsUpdating
+
 extension WeatherSearchTableViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
+        
+    }
+}
+
+// MARK: - WeatherSearchViewModelProtocal
+
+extension WeatherSearchTableViewController: WeatherSearchViewModelProtocal {
+    func didRecieveCurrentLocation(_ location: CLLocationCoordinate2D) {
+        let weatherSearchInfo = WeatherSearch(searchType: .location(lat: location.latitude, lon: location.longitude))
+        coordinator?.showWeatherDetail(with: weatherSearchInfo)
+    }
+    
+    func didFailGettingCurrentLocation() {
         
     }
 }
