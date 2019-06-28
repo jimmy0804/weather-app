@@ -18,9 +18,10 @@ final class WeatherSearchCoordinator: Coordinator {
     }
 
     func start() {
-        let weatherSearchViewController: WeatherSearchViewController = UIStoryboard(.search).instantiateViewController()
-        weatherSearchViewController.coordinator = self
-        weatherSearchViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
-        navigationController.pushViewController(weatherSearchViewController, animated: true)
+        let viewModel = WeatherSearchViewModel()
+        let weatherSearchTableViewController: WeatherSearchTableViewController = UIStoryboard(.search).instantiateViewController()
+        weatherSearchTableViewController.coordinator = self
+        weatherSearchTableViewController.viewModel = viewModel
+        navigationController.pushViewController(weatherSearchTableViewController, animated: true)
     }
 }

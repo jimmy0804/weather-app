@@ -14,6 +14,8 @@ final class AppCoordinator: Coordinator {
 
     let window: UIWindow
     
+    let navController = UINavigationController()
+    
     // MARK: - Init
 
     init(window: UIWindow) {
@@ -23,9 +25,10 @@ final class AppCoordinator: Coordinator {
     // MARK: - Start
 
     func start() {
-        let mainTabBarViewController: MainTabBarViewController = UIStoryboard(.main).instantiateViewController()
-
-        window.rootViewController = mainTabBarViewController
+        window.rootViewController = navController
         window.makeKeyAndVisible()
+
+        let weatherSearchCoordinator = WeatherSearchCoordinator(navigationController: navController)
+        weatherSearchCoordinator.start()
     }
 }
