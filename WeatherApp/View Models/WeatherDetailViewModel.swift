@@ -11,16 +11,17 @@ import Foundation
 protocol WeatherDetailViewModelProtocal: class {
     func weatherDetailViewModel(_ viewModel: WeatherDetailViewModel, startsSearching search: WeatherSearch)
     
-    func weatherDetailViewModel(_ viewModel: WeatherDetailViewModel, didFinishSearching search: WeatherSearch, withResult result: Weather)
+    func weatherDetailViewModel(_ viewModel: WeatherDetailViewModel, didFinishSearching search: WeatherSearch, withResult result: WeatherViewModel)
     
     func weatherDetailViewModel(_ viewModel: WeatherDetailViewModel, didFailedSearching search: WeatherSearch, withReason reason: String)
 }
 
-struct WeatherDetailViewModel {
+class WeatherDetailViewModel {
     
     // MARK: - Property
     
     let weatherSearch: WeatherSearch
+    var weatherViewModel: WeatherViewModel?
     
     weak var delegate: WeatherDetailViewModelProtocal?
     
@@ -41,6 +42,8 @@ struct WeatherDetailViewModel {
     // MARK: - Search
     
     func getWeatherDetail() {
+        delegate?.weatherDetailViewModel(self, startsSearching: weatherSearch)
+
         switch weatherSearch.searchType {
         case .cityName(name: let name):
             searchWeather(byCityName: name)
@@ -56,35 +59,31 @@ struct WeatherDetailViewModel {
     }
     
     private func searchWeather(byCityName name: String) {
-        networkRouter.request(type: Weather.self, route: .getWeatherByCityName(cityName: name)) { response in
-            switch response {
-            case .success(let weather):
-                print(weather)
-            case .failure(let error):
-                print(error)
-            }
-        }
+        networkRouter.request(type: Weather.self,
+                              route: .getWeatherByCityName(cityName: name),
+                              completion: handleSearchWeatherResponse)
     }
 
     private func searchWeather(byZipCode code: String) {
-        networkRouter.request(type: Weather.self, route: .getWeatherByZipCode(zipCode: code)) { response in
-            switch response {
-            case .success(let weather):
-                print(weather)
-            case .failure(let error):
-                print(error)
-            }
-        }
+        networkRouter.request(type: Weather.self,
+                              route: .getWeatherByZipCode(zipCode: code),
+                              completion: handleSearchWeatherResponse)
     }
     
     private func searchWeather(byLatitude lat: Double, longitude lon: Double) {
-        networkRouter.request(type: Weather.self, route: .getWeatherByCoordinates(lat: lat, lon: lon)) { response in
-            switch response {
-            case .success(let weather):
-                print(weather)
-            case .failure(let error):
-                print(error)
-            }
+        networkRouter.request(type: Weather.self,
+                              route: .getWeatherByCoordinates(lat: lat, lon: lon),
+                              completion: handleSearchWeatherResponse)
+    }
+    
+    private func handleSearchWeatherResponse(_ response: NetworkResponse<Weather>) {
+        switch response {
+        case .success(let weather):
+            let weatherViewModel = WeatherViewModel(weather: weather)
+            self.weatherViewModel = weatherViewModel
+            delegate?.weatherDetailViewModel(self, didFinishSearching: weatherSearch, withResult: weatherViewModel)
+        case .failure(let error):
+            delegate?.weatherDetailViewModel(self, didFailedSearching: weatherSearch, withReason: error.localizedDescription)
         }
     }
 }

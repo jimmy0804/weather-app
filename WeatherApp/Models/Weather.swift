@@ -18,6 +18,7 @@ struct Weather: Codable {
     var clouds: Clouds
     var rain: Rain?
     var snow: Snow?
+    var extraInfo: WeatherExtraInfo?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -29,5 +30,6 @@ struct Weather: Codable {
         case clouds
         case rain
         case snow
+        case extraInfo = "sys"
     }
 }

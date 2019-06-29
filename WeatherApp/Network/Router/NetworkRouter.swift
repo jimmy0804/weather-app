@@ -21,7 +21,9 @@ public class NetworkRouter<Service: ServiceType>: NetworkRoutable {
             let request = try buildRequest(from: route)
             task = session.dataTask(request: request, completionHandler: { [weak self] (data, response, error) in
                 let httpResponse = response as? HTTPURLResponse
-                self?.handleDataResponse(data: data, response: httpResponse, error: error, completion: completion)
+                DispatchQueue.main.async {
+                    self?.handleDataResponse(data: data, response: httpResponse, error: error, completion: completion)
+                }
             })
         } catch {
             completion(.failure(.failed))

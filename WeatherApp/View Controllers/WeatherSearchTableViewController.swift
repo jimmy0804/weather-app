@@ -159,10 +159,10 @@ class WeatherSearchTableViewController: UITableViewController {
         case .search:
             if indexPath.row == 0 {
                 let weatherSearchInfo = WeatherSearch(searchType: .cityName(name: viewModel.searchKeywords))
-                coordinator?.showWeatherDetail(with: weatherSearchInfo)
+                showWeatherDetailActions(with: weatherSearchInfo)
             } else {
                 let weatherSearchInfo = WeatherSearch(searchType: .zipCode(code: viewModel.searchKeywords))
-                coordinator?.showWeatherDetail(with: weatherSearchInfo)
+                showWeatherDetailActions(with: weatherSearchInfo)
             }
         case .searchHistory:
 //            coordinator?.showWeatherDetail(keywords: "")
@@ -190,6 +190,10 @@ class WeatherSearchTableViewController: UITableViewController {
     
     func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    func showWeatherDetailActions(with weatherSearch: WeatherSearch) {
+        coordinator?.showWeatherDetail(with: weatherSearch)
     }
 }
 
@@ -223,7 +227,7 @@ extension WeatherSearchTableViewController: UISearchResultsUpdating {
 extension WeatherSearchTableViewController: WeatherSearchViewModelProtocal {
     func didRecieveCurrentLocation(_ location: CLLocationCoordinate2D) {
         let weatherSearchInfo = WeatherSearch(searchType: .location(lat: location.latitude, lon: location.longitude))
-        coordinator?.showWeatherDetail(with: weatherSearchInfo)
+        showWeatherDetailActions(with: weatherSearchInfo)
     }
     
     func didFailGettingCurrentLocation() {

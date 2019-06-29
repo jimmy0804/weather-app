@@ -48,12 +48,17 @@ extension WeatherApi: ServiceType {
         switch self {
         case .getWeatherByCityName(cityName: let cityName):
             return .requestParameters(bodyParameters: nil, urlParameters: ["q": cityName,
-                                                                           "appid": APIKey
-                ])
+                                                                           "units": "metric",
+                                                                           "appid": APIKey])
         case .getWeatherByZipCode(zipCode: let zipCode):
-            return .requestParameters(bodyParameters: nil, urlParameters: ["zip": zipCode, "appid": APIKey])
+            return .requestParameters(bodyParameters: nil, urlParameters: ["zip": zipCode,
+                                                                           "units": "metric",
+                                                                           "appid": APIKey])
         case .getWeatherByCoordinates(lat: let lat, lon: let lon):
-            return .requestParameters(bodyParameters: nil, urlParameters: ["lat": lat, "lon": lon, "appid": APIKey])
+            return .requestParameters(bodyParameters: nil, urlParameters: ["lat": lat,
+                                                                           "lon": lon,
+                                                                           "units": "metric",
+                                                                           "appid": APIKey])
         }
     }
     
