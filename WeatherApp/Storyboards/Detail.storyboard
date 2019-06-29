@@ -65,19 +65,30 @@
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="0d0-G3-cd3">
                                 <rect key="frame" x="197" y="438" width="20" height="20"/>
                             </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i1Q-YH-dth">
+                                <rect key="frame" x="20" y="475" width="374" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="jTC-4R-hcp" firstAttribute="leading" secondItem="xNv-v4-lie" secondAttribute="leading" id="7YC-j2-ZSj"/>
                             <constraint firstItem="0d0-G3-cd3" firstAttribute="centerY" secondItem="7Q5-Ki-aLf" secondAttribute="centerY" id="Iva-mf-8AX"/>
+                            <constraint firstItem="i1Q-YH-dth" firstAttribute="trailing" secondItem="vEC-Yz-tRI" secondAttribute="trailingMargin" id="M07-dv-QqY"/>
+                            <constraint firstItem="i1Q-YH-dth" firstAttribute="centerY" secondItem="vEC-Yz-tRI" secondAttribute="centerY" id="TdP-Ua-KBO"/>
+                            <constraint firstItem="i1Q-YH-dth" firstAttribute="centerX" secondItem="vEC-Yz-tRI" secondAttribute="centerX" id="acr-pl-Cea"/>
                             <constraint firstItem="jTC-4R-hcp" firstAttribute="top" secondItem="xNv-v4-lie" secondAttribute="top" id="cFs-nf-nct"/>
                             <constraint firstItem="xNv-v4-lie" firstAttribute="trailing" secondItem="jTC-4R-hcp" secondAttribute="trailing" id="khf-hs-gSg"/>
                             <constraint firstItem="0d0-G3-cd3" firstAttribute="centerX" secondItem="7Q5-Ki-aLf" secondAttribute="centerX" id="rgP-u0-Scz"/>
+                            <constraint firstItem="i1Q-YH-dth" firstAttribute="leading" secondItem="vEC-Yz-tRI" secondAttribute="leadingMargin" id="sDc-hP-c4i"/>
                             <constraint firstAttribute="bottom" secondItem="jTC-4R-hcp" secondAttribute="bottom" id="uVE-IM-kGQ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="xNv-v4-lie"/>
                     </view>
                     <connections>
+                        <outlet property="errorLabel" destination="i1Q-YH-dth" id="1az-uM-ATF"/>
                         <outlet property="spinner" destination="0d0-G3-cd3" id="phN-YP-tnA"/>
                         <outlet property="tableView" destination="vEC-Yz-tRI" id="sLZ-nb-6NT"/>
                     </connections>

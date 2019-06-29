@@ -45,6 +45,12 @@ class WeatherDetailViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var errorLabel: UILabel! {
+        didSet {
+            errorLabel.isHidden = true
+            errorLabel.text = "Sorry, we couldn't find the weather information."
+        }
+    }
     // MARK: - Property
     
     let titleCellId = "WeatherDetailTitleTableViewCell"
@@ -55,6 +61,14 @@ class WeatherDetailViewController: UIViewController {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
+    }
+    
+    private var hasError = false {
+        didSet {
+            spinner.stopAnimating()
+            tableView.isHidden = true
+            errorLabel.isHidden = false
+        }
     }
     
     // MARK: - Life cycle
@@ -135,7 +149,7 @@ extension WeatherDetailViewController: WeatherDetailViewModelProtocal {
     }
     
     func weatherDetailViewModel(_ viewModel: WeatherDetailViewModel, didFailedSearching search: WeatherSearch, withReason reason: String) {
-        spinner.stopAnimating()
+        hasError = true
     }
 }
 
