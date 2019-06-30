@@ -9,8 +9,7 @@
 import UIKit
 
 final class WeatherSearchCoordinator: Coordinator {
-    
-    var childCoordinators = [Coordinator]()
+
     var navigationController: UINavigationController
     
     init(navigationController: UINavigationController) {
