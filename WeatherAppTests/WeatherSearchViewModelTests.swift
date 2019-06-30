@@ -82,7 +82,7 @@ class WeatherSearchViewModelTests: XCTestCase {
     
     func test_hasHistory_returnsExpectedValue() {
         let viewModel = WeatherSearchViewModel(delegate: delegate, locationManager: locationManager)
-        let expectedSearchHistory = [Weather]()
+        let expectedSearchHistory = [WeatherSearch]()
         
         viewModel.searchHistory = expectedSearchHistory
         

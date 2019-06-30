@@ -15,13 +15,13 @@ class WeatherDetailViewModelDelegateMock: WeatherDetailViewModelProtocal {
     private (set) var didFinishSearchingWasCalled = false
     private (set) var didFailedSearchingWasCalled = false
     
-    private (set) var weatherResult: Weather?
+    private (set) var weatherResult: WeatherViewModel?
 
     func weatherDetailViewModel(_ viewModel: WeatherDetailViewModel, startsSearching search: WeatherSearch) {
         startsSearchingWasCalled = true
     }
     
-    func weatherDetailViewModel(_ viewModel: WeatherDetailViewModel, didFinishSearching search: WeatherSearch, withResult result: Weather) {
+    func weatherDetailViewModel(_ viewModel: WeatherDetailViewModel, didFinishSearching search: WeatherSearch, withResult result: WeatherViewModel) {
         weatherResult = result
         didFinishSearchingWasCalled = true
     }

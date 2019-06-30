@@ -93,9 +93,6 @@ public class NetworkRouter<Service: ServiceType>: NetworkRoutable {
             return completion(.failure(.noResponse))
         }
         
-        print(error)
-        print(response)
-        
         switch response.statusCode {
         case 200...299:
             guard let responseData = data else {

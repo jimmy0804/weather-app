@@ -103,6 +103,7 @@ class NetworkRouterTests: XCTestCase {
         
         var actualData: Weather?
         var actualError = NetworkError.unknown
+        let expectation = self.expectation(description: "Network")
         
         networkRouter.request(type: Weather.self, route: .getWeatherByCityName(cityName: cityName)) { response in
             switch response {
@@ -111,8 +112,10 @@ class NetworkRouterTests: XCTestCase {
             case .failure(let error):
                 actualError = error
             }
+            expectation.fulfill()
         }
-
+        
+        waitForExpectations(timeout: 5, handler: nil)
         XCTAssertNil(actualData)
         XCTAssertTrue(actualError == .noData)
     }
@@ -120,6 +123,7 @@ class NetworkRouterTests: XCTestCase {
     func test_get_shouldReturnUnableToDecode() {
         let cityName = "Hong Kong"
         let expectedData = "{}".data(using: .utf8)
+        let expectation = self.expectation(description: "Network")
 
         session.nextData = expectedData
         
@@ -133,8 +137,10 @@ class NetworkRouterTests: XCTestCase {
             case .failure(let error):
                 actualError = error
             }
+            expectation.fulfill()
         }
         
+        waitForExpectations(timeout: 5, handler: nil)
         XCTAssertNil(actualData)
         XCTAssertTrue(actualError == .unableToDecode)
     }
