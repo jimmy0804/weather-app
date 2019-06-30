@@ -10,7 +10,7 @@ import Foundation
 
 struct Wind: Codable {
     var speed: Double
-    var degree: Int
+    var degree: Double
     
     enum CodingKeys: String, CodingKey {
         case speed

@@ -8,12 +8,20 @@
 
 import Foundation
 
-struct Snow: Codable {
-    var volumnInOneHour: Double
-    var volumnInThreeHour: Double
-    
+struct Snow {
+    var volumnInOneHour = 0.0
+    var volumnInThreeHour = 0.0
+}
+
+extension Snow: Codable {
     enum CodingKeys: String, CodingKey {
         case volumnInOneHour = "1h"
         case volumnInThreeHour = "3h"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        volumnInOneHour = try container.decodeIfPresent(Double.self, forKey: .volumnInOneHour) ?? 0.0
+        volumnInThreeHour = try container.decodeIfPresent(Double.self, forKey: .volumnInThreeHour) ?? 0.0
     }
 }

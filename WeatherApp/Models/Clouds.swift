@@ -9,7 +9,7 @@
 import Foundation
 
 struct Clouds: Codable {
-    var cloudiness: Int
+    var cloudiness = 0
     
     enum CodingKeys: String, CodingKey {
         case cloudiness = "all"

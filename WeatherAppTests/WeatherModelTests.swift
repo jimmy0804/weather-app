@@ -96,5 +96,37 @@ class WeatherModelTests: XCTestCase {
         }
     }
     
+    func test_rainModel_withMissingJSONKey() {
+        let json = """
+        {"1h": 55.3}
+        """
+
+        let jsonData = Data(json.utf8)
+        let decoder = JSONDecoder()
+        
+        do {
+            let rainModel = try decoder.decode(Rain.self, from: jsonData)
+            XCTAssertTrue(rainModel.volumnInOneHour == 55.3)
+            XCTAssertTrue(rainModel.volumnInThreeHour == 0.0)
+        } catch {
+            XCTFail("Failed to decode JSON to Rain Model")
+        }
+    }
     
+    func test_snowModel_withMissingJSONKey() {
+        let json = """
+        {"1h": 20}
+        """
+        
+        let jsonData = Data(json.utf8)
+        let decoder = JSONDecoder()
+        
+        do {
+            let snowModel = try decoder.decode(Snow.self, from: jsonData)
+            XCTAssertTrue(snowModel.volumnInOneHour == 20)
+            XCTAssertTrue(snowModel.volumnInThreeHour == 0.0)
+        } catch {
+            XCTFail("Failed to decode JSON to Snow Model")
+        }
+    }
 }
