@@ -23,30 +23,55 @@ class WeatherSearchViewModel: NSObject {
         return !searchKeywords.isEmpty
     }
     
-    var isAllowSearchByLocation = true
-    
-    var searchHistory = [Weather]()
+    var searchHistory = [WeatherSearch]()
     var hasSearchHistory: Bool {
         return !searchHistory.isEmpty
     }
 
     weak var delegate: WeatherSearchViewModelProtocal?
     
+    // Make sure we only tell the delegate one time once the location is retrived.
+    private var currentLocationRetrived = false
+    
     // MARK: - Dependency
     
+    var weatherHistoryPersistentManager: WeatherHistoryPersistentManager
     var locationManager: LocationManager
     
     // MARK: - Init
 
     init(delegate: WeatherSearchViewModelProtocal,
+         weatherHistoryPersistentManager: WeatherHistoryPersistentManager = WeatherHistoryPersistentManager(),
          locationManager: LocationManager = CLLocationManager()) {
         self.delegate = delegate
+        self.weatherHistoryPersistentManager = weatherHistoryPersistentManager
         self.locationManager = locationManager
+    }
+    
+    // MARK: - Save / Load
+    
+    func loadWeatherHistory() {
+        guard let history = weatherHistoryPersistentManager.loadHistory() else {
+            return
+        }
+
+        searchHistory = history
+    }
+    
+    func saveWeatherHistory(_ history: WeatherSearch) {
+        searchHistory.insert(history, at: 0)
+        weatherHistoryPersistentManager.saveHistory(searchHistory)
+    }
+    
+    func removeWeatherHistory(atIndex index: Int) {
+        searchHistory.remove(at: index)
+        weatherHistoryPersistentManager.saveHistory(searchHistory)
     }
     
     // MARK: - Location
     
     func getCurrentLocationIfAvailable() {
+        currentLocationRetrived = false
         locationManager.requestWhenInUseAuthorization()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
@@ -63,8 +88,12 @@ extension WeatherSearchViewModel: CLLocationManagerDelegate {
             manager.stopUpdatingLocation()
             return
         }
+        
+        if !currentLocationRetrived {
+            delegate?.didRecieveCurrentLocation(locationValue)
+        }
 
-        delegate?.didRecieveCurrentLocation(locationValue)
+        currentLocationRetrived = true
         manager.stopUpdatingLocation()
     }
 }

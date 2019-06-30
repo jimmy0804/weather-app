@@ -32,6 +32,17 @@ class WeatherSearchTableViewController: UITableViewController {
         setupNavigationController()
         setupSearchController()
         setupTableView()
+        
+        viewModel?.loadWeatherHistory()
+        tableView.reloadData()
+    }
+    
+    // MARK: - Override
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+
+        tableView.setEditing(editing, animated: animated)
     }
     
     // MARK: - Set up
@@ -57,6 +68,8 @@ class WeatherSearchTableViewController: UITableViewController {
     }
     
     private func setupTableView() {
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 44
         tableView.keyboardDismissMode = .onDrag
         tableView.tableFooterView = UIView()
     }
@@ -86,7 +99,7 @@ class WeatherSearchTableViewController: UITableViewController {
         case .search:
             return viewModel.hasSearchKeywords ? 2 : 0
         case .searchHistory:
-            return viewModel.hasSearchHistory ? viewModel.searchHistory.count : 0
+            return viewModel.searchHistory.count
         case .total:
             return 0
         }
@@ -105,6 +118,7 @@ class WeatherSearchTableViewController: UITableViewController {
         cell.selectionStyle = .default
         cell.accessoryType = .disclosureIndicator
         cell.textLabel?.textColor = .black
+        cell.detailTextLabel?.text?.removeAll()
         
         switch tableViewSection {
         case .search:
@@ -114,11 +128,17 @@ class WeatherSearchTableViewController: UITableViewController {
                 cell.textLabel?.text = "Search by Zip Code \"\(viewModel.searchKeywords)\""
             }
         case .searchHistory:
-            if !viewModel.hasSearchHistory {
-                cell.textLabel?.text = "Empty"
-                cell.selectionStyle = .none
-                cell.accessoryType = .none
-                cell.textLabel?.textColor = .lightGray
+            let weatherSearch = viewModel.searchHistory[indexPath.row]
+            switch weatherSearch.searchType {
+            case .cityName(name: let name):
+                cell.textLabel?.text = name
+                cell.detailTextLabel?.text = "City"
+            case .zipCode(code: let code):
+                cell.textLabel?.text = code
+                cell.detailTextLabel?.text = "Zip Code"
+            case .location(lat: let lat, lon: let lon):
+                cell.textLabel?.text = "\(lat) \(lon)"
+                cell.detailTextLabel?.text = "Location"
             }
         case .total:
             break
@@ -165,15 +185,31 @@ class WeatherSearchTableViewController: UITableViewController {
                 showWeatherDetailActions(with: weatherSearchInfo)
             }
         case .searchHistory:
-//            coordinator?.showWeatherDetail(keywords: "")
+            let weatherSearch = viewModel.searchHistory[indexPath.row]
+            showWeatherDetailActions(with: weatherSearch, isSaveHistory: false)
             break
         case .total:
             break
         }
     }
+    
+    // MARK: Table View Deleteion
+    
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        guard let tableViewSection = TableViewSection(rawValue: indexPath.section) else {
+            return .none
+        }
+        
+        if tableViewSection == .searchHistory {
+            return .delete
+        }
+        
+        return .none
+    }
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            viewModel?.removeWeatherHistory(atIndex: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
@@ -192,17 +228,19 @@ class WeatherSearchTableViewController: UITableViewController {
         view.endEditing(true)
     }
     
-    func showWeatherDetailActions(with weatherSearch: WeatherSearch) {
+    func showWeatherDetailActions(with weatherSearch: WeatherSearch, isSaveHistory: Bool = true) {
+        if isSaveHistory {
+            viewModel?.saveWeatherHistory(weatherSearch)
+        }
+
         coordinator?.showWeatherDetail(with: weatherSearch)
+        tableView.reloadData()
     }
 }
 
 // MARK: - UISearchBarDelegate
 
 extension WeatherSearchTableViewController: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-    }
-    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         viewModel?.searchKeywords.removeAll()
         reloadTableViewWhenSearchTextChange(searchText: "")
@@ -218,7 +256,9 @@ extension WeatherSearchTableViewController: UISearchBarDelegate {
 
 extension WeatherSearchTableViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        
+        if searchController.isActive {
+            setEditing(false, animated: true)
+        }
     }
 }
 

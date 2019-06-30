@@ -30,12 +30,12 @@ class FilesManager {
             throw Error.invalidDirectory
         }
 
-        if fileManager.fileExists(atPath: url.absoluteString) {
-            throw Error.fileAlreadyExists
-        }
-
         do {
-            try data.write(to: url)
+            if fileManager.fileExists(atPath: url.path) {
+                try FileManager.default.removeItem(at: url)
+            }
+
+            FileManager.default.createFile(atPath: url.path, contents: data, attributes: nil)
         } catch {
             print(error)
             throw Error.writtingFailed
@@ -47,7 +47,7 @@ class FilesManager {
             throw Error.invalidDirectory
         }
     
-        guard fileManager.fileExists(atPath: url.absoluteString) else {
+        guard fileManager.fileExists(atPath: url.path) else {
             throw Error.fileNotExists
         }
 
