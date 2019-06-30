@@ -32,9 +32,7 @@ class WeatherSearchTableViewController: UITableViewController {
         setupNavigationController()
         setupSearchController()
         setupTableView()
-        
-        viewModel?.loadWeatherHistory()
-        tableView.reloadData()
+        showRecentSearchHistory()
     }
     
     // MARK: - Override
@@ -72,6 +70,14 @@ class WeatherSearchTableViewController: UITableViewController {
         tableView.estimatedRowHeight = 44
         tableView.keyboardDismissMode = .onDrag
         tableView.tableFooterView = UIView()
+    }
+    
+    private func showRecentSearchHistory() {
+        viewModel?.loadWeatherHistory()
+        tableView.reloadData()
+        if let weatherSearch = viewModel?.searchHistory.first {
+            showWeatherDetailActions(with: weatherSearch, isSaveHistory: false)
+        }
     }
     
     // MARK: - Action
@@ -231,10 +237,10 @@ class WeatherSearchTableViewController: UITableViewController {
     func showWeatherDetailActions(with weatherSearch: WeatherSearch, isSaveHistory: Bool = true) {
         if isSaveHistory {
             viewModel?.saveWeatherHistory(weatherSearch)
+            tableView.reloadData()
         }
 
         coordinator?.showWeatherDetail(with: weatherSearch)
-        tableView.reloadData()
     }
 }
 
